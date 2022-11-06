@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class InteractionEvents : MonoBehaviour
 {
-    public UnityEvent OnInteract;
+    public UnityEvent<GameObject> OnInteract;
 }

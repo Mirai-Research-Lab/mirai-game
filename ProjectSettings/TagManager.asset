@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Weapon
   - Muzzle
+  - Holder
   layers:
   - Default
   - TransparentFX

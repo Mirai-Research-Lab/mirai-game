@@ -16,8 +16,9 @@ public class PlayerShooting : MonoBehaviour
     private float f_shootInterval = 0f;
     public void fire(float input)
     {
-        Debug.Log(input);
-        if(input > Mathf.Epsilon && Time.timeSinceLevelLoad > f_shootInterval)
+        Weapon wep = GetComponentInChildren<Weapon>();
+
+        if(input > Mathf.Epsilon && Time.timeSinceLevelLoad > f_shootInterval && wep != null)
         {
             f_shootInterval = Time.timeSinceLevelLoad + (1 / f_fireRate);
             processShooting();

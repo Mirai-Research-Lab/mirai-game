@@ -5,8 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     // Weapon Stats
-    [SerializeField] private int weaponId;
-    [SerializeField] private string weaponName;
+    [SerializeField] private Gun gunProps;
     [SerializeField] private ParticleSystem ps;
     [SerializeField] GameObject lights;
 
@@ -30,5 +29,8 @@ public class Weapon : MonoBehaviour
             
     }
     // Rest needs to be implemented
-
+    public Gun getGunScriptable()
+    {
+        return gunProps;
+    }
 }

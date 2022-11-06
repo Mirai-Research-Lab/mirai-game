@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 655465588940660234}
   m_Layer: 0
   m_Name: WeaponHolder
-  m_TagString: Untagged
+  m_TagString: Holder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 1618214790}
   - component: {fileID: 1618214795}
   - component: {fileID: 7456389270709341052}
+  - component: {fileID: 8333734895378700185}
   - component: {fileID: 1618214797}
   m_Layer: 0
   m_Name: Player
@@ -240,6 +241,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c8d8792a1fe3448bc81dfca00cb8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8333734895378700185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5037533851557550224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67320bae2748654ebf35b29cbb2dfc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 2383044415073308983}
+  distance: 6
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  promptText: {fileID: 0}
 --- !u!95 &1618214797
 Animator:
   serializedVersion: 4
@@ -332,6 +351,12 @@ PrefabInstance:
 --- !u!4 &2383044415073308980 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8664138375136596493, guid: ca55dc185684908458d96f60459ce819,
+    type: 3}
+  m_PrefabInstance: {fileID: 6426484624581755705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &2383044415073308983 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8664138375136596494, guid: ca55dc185684908458d96f60459ce819,
     type: 3}
   m_PrefabInstance: {fileID: 6426484624581755705}
   m_PrefabAsset: {fileID: 0}

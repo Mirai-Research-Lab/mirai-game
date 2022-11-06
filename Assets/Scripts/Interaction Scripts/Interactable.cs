@@ -8,13 +8,13 @@ public abstract class Interactable : MonoBehaviour
     public bool useEvents;
     // Message to display to players
     public string prompyMessage;
-    public void BaseInteract()
+    public void BaseInteract(GameObject interactble = null)
     {
         if (useEvents)
-            GetComponent<InteractionEvents>().OnInteract.Invoke();
-        Interact();
+            GetComponent<InteractionEvents>().OnInteract.Invoke(interactble);
+        Interact(interactble);
     }
-    protected virtual void Interact()
+    protected virtual void Interact(GameObject interactable = null)
     {
         // Overwrite the function
     }
