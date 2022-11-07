@@ -9,4 +9,6 @@ public class Gun : ScriptableObject
     public int id;
     public GameObject weaponPrefab;
     public GameObject pickUpPrefab;
+    public int ammo;
+    public int damage;
 }

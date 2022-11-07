@@ -11,17 +11,40 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float maxDistance = 2000f;
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private ParticleSystem hitEffectVfx;
+    [SerializeField] private WeaponRecoil recoilScript;
+
+    private AnimationManager animManager;
     private Ray ray;
     private RaycastHit hit;
     private float f_shootInterval = 0f;
-    public void fire(float input)
+    private bool isReloading = false;
+
+    private void Start()
+    {
+        animManager = GetComponent<AnimationManager>();
+        recoilScript = GetComponentInChildren<WeaponRecoil>();
+    }
+    private void Update()
     {
         Weapon wep = GetComponentInChildren<Weapon>();
 
-        if(input > Mathf.Epsilon && Time.timeSinceLevelLoad > f_shootInterval && wep != null)
+        if (wep != null && wep.getCurrentAmmo() <= 0) 
         {
-            f_shootInterval = Time.timeSinceLevelLoad + (1 / f_fireRate);
-            processShooting();
+            animManager.reload();
+            isReloading = true;
+        }
+    }
+    public void fire(float input)
+    {
+        Weapon wep = GetComponentInChildren<Weapon>();
+        if(input > Mathf.Epsilon && Time.timeSinceLevelLoad > f_shootInterval && wep != null && !isReloading)
+        {
+            if (wep.getCurrentAmmo() > 0)
+            {
+                wep.reduceAmmo();
+                f_shootInterval = Time.timeSinceLevelLoad + (1 / f_fireRate);
+                processShooting();
+            }
         }
     }
     private void processShooting()
@@ -30,13 +53,14 @@ public class PlayerShooting : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
+            recoilScript.RecoilFire();
             t_trailOrigin = GameObject.FindGameObjectWithTag("Muzzle").transform;
             TrailRenderer trail = Instantiate(trailRenderer, t_trailOrigin.position, Quaternion.identity);
             if(trail)
                 StartCoroutine(SpawnTrail(trail, hit));
         }
     }
-
+    
     IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
     {
         float time = 0;
@@ -51,6 +75,17 @@ public class PlayerShooting : MonoBehaviour
         }
         trail.transform.position = hit.point;
         // Instantiate impact particle system
-        Instantiate(hitEffectVfx, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(Instantiate(hitEffectVfx, hit.point, Quaternion.LookRotation(hit.normal)).gameObject, 1f);
+        Destroy(trail.gameObject);
+    }
+    public void reload()
+    {
+        Weapon wep = GetComponentInChildren<Weapon>();
+        isReloading = false;
+        wep.resetAmmo();
+    }
+    public bool getIsReloading()
+    {
+        return isReloading;
     }
 }

@@ -6,21 +6,25 @@ public class Weapon : MonoBehaviour
 {
     // Weapon Stats
     [SerializeField] private Gun gunProps;
+    private int totalAmmo;
+    private int currentAmmo;
+    // Reference Objects
     [SerializeField] private ParticleSystem ps;
     [SerializeField] GameObject lights;
-
+    [SerializeField]
     private void Awake()
     {
         ps = GetComponentInChildren<ParticleSystem>();
+        totalAmmo = gunProps.ammo;
+        currentAmmo = totalAmmo;
     }
     private void Update()
     {
-        if (InputManager.isShooting)
+        if (InputManager.isShooting && currentAmmo > 0)
         {
             ps.Play();
             lights.SetActive(true);
         }
-            
         else
         {
             ps.Stop();
@@ -32,5 +36,17 @@ public class Weapon : MonoBehaviour
     public Gun getGunScriptable()
     {
         return gunProps;
+    }
+    public void reduceAmmo()
+    {
+        currentAmmo--;
+    }
+    public void resetAmmo()
+    {
+        currentAmmo = totalAmmo;
+    }
+    public int getCurrentAmmo()
+    {
+        return currentAmmo;
     }
 }
