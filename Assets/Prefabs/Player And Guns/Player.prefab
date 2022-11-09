@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4919746996701130237}
+  - component: {fileID: 1468336847}
   m_Layer: 0
   m_Name: CameraRecoil
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   m_Father: {fileID: 5902020792335330771}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468336847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270609423837904079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5839fc2d34986244a9e2c07b94e7b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilX: 2
+  recoilY: 2
+  recoilZ: 1
+  snappiness: 8
+  returnSpeed: 2
 --- !u!1 &3429415176252811456
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +196,7 @@ MonoBehaviour:
   t_origin: {fileID: 2383044415073308980}
   t_trailOrigin: {fileID: 0}
   f_fireRate: 5
+  penaltyForMiss: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -186,6 +205,7 @@ MonoBehaviour:
     type: 3}
   hitEffectVfx: {fileID: 2732207468448951718, guid: fcd366eb675eb694780ef6e18ac99bd0,
     type: 3}
+  gameManager: {fileID: 0}
 --- !u!114 &1618214789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8ff1a9f4ac25747850626e01728a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetGeneration: {fileID: 0}
 --- !u!114 &1618214790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  gravity: -9.8
+  gravity: -15
   jumpHeight: 1
   jumpPower: 5
 --- !u!114 &1618214795

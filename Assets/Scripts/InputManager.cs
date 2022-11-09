@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
+    [SerializeField] private TargetGeneration targetGeneration;
     public PlayerInput playerInput;
     private PlayerInput.OnFootActions onFoot;
     private PlayerMovement playerMovement;
@@ -28,12 +29,18 @@ public class InputManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        playerMovement.processMovement(onFoot.Movement.ReadValue<Vector2>());
+        if (!targetGeneration.getIsOver())
+            playerMovement.processMovement(onFoot.Movement.ReadValue<Vector2>());
+        else
+            onFoot.Jump.performed -= ctx => playerMovement.Jump();
     }
     private void Update()
     {
-        playerLook.ProcessLook(onFoot.Look.ReadValue<Vector2>());
-        PlayerShooting();
+        if (!targetGeneration.getIsOver())
+        {
+            playerLook.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+            PlayerShooting();
+        } 
     }
 
     private void PlayerShooting()

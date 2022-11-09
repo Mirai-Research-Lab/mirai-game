@@ -10,8 +10,9 @@ public class Weapon : MonoBehaviour
     private int currentAmmo;
     // Reference Objects
     [SerializeField] private ParticleSystem ps;
-    [SerializeField] GameObject lights;
-    [SerializeField]
+    [SerializeField] private GameObject lights;
+    [SerializeField] private int damageAmount = 20;
+    [SerializeField] private float fireRate = 5f;
     private void Awake()
     {
         ps = GetComponentInChildren<ParticleSystem>();
@@ -48,5 +49,13 @@ public class Weapon : MonoBehaviour
     public int getCurrentAmmo()
     {
         return currentAmmo;
+    }
+    public int getDamageAmount()
+    {
+        return damageAmount;
+    }
+    public float getFireRate()
+    {
+        return fireRate;
     }
 }

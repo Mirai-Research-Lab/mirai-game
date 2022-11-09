@@ -101,6 +101,8 @@ MonoBehaviour:
   gunProps: {fileID: 11400000, guid: 000661bfff1e9e64bb47a5a6b4f9667c, type: 2}
   ps: {fileID: 6659458882416326779}
   lights: {fileID: 402448298753977903}
+  damageAmount: 80
+  fireRate: 1
 --- !u!1001 &1401930178396502156
 PrefabInstance:
   m_ObjectHideFlags: 0
