@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  gravity: -15
+  gravity: -25
   jumpHeight: 1
   jumpPower: 5
 --- !u!114 &1618214795

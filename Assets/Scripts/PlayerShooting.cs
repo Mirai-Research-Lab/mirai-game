@@ -70,7 +70,7 @@ public class PlayerShooting : MonoBehaviour
             NormalTarget target = hit.transform.GetComponent<NormalTarget>();
             if (target != null)
             {
-                target.reduceDurability(wep.getDamageAmount());
+                target.reduceDurability(wep.getDamageAmount(), hit.point);
                 shotsOnTarget++;
             }
             else

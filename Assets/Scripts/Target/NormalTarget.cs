@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(Animator))]
 public class NormalTarget : TargetBase
 {
-    [SerializeField] private Animator anim;
     [SerializeField] private float selfDestructTime = 3f;
-    
+    [SerializeField] private GameObject shatteredTarget;
+    [SerializeField] private GameObject intactTarget;
+    private bool isItDestroyed = false;
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        shatteredTarget.SetActive(false);
+        intactTarget.SetActive(true);
         StartCoroutine(selfDestruct());
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
@@ -17,23 +18,32 @@ public class NormalTarget : TargetBase
     IEnumerator selfDestruct()
     {
         yield return new WaitForSeconds(selfDestructTime);
-        Destroy(gameObject);
-    }
-    protected override void DestroyTarget()
-    {
-        if(anim)
-        {
-            // set some animation
-            gameManager.updateTotalPoints(points);
+        if(!isItDestroyed)
             Destroy(gameObject);
+    }
+    protected override void DestroyTarget(Vector3 lastHitPoint)
+    {
+        isItDestroyed = true;
+        // set some animation
+        gameManager.updateTotalPoints(points);
+        intactTarget.SetActive(false);
+        shatteredTarget.SetActive(true);
+        GetComponent<SphereCollider>().enabled = false;
+        foreach(Transform child in shatteredTarget.transform)
+        {
+            if(child.TryGetComponent<Rigidbody>(out Rigidbody childRb))
+            {
+                childRb.AddExplosionForce(100f, lastHitPoint, 4f);
+            }
         }
+        Destroy(gameObject, 0.2f);   
     }
 
-    public void reduceDurability(int amount)
+    public void reduceDurability(int amount, Vector3 lastHitPoint)
     {
         durability -= amount;
         if (durability <= 0)
-            DestroyTarget();
+            DestroyTarget(lastHitPoint);
     }
 
     public int GetDurability()

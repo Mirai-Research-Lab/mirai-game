@@ -13,7 +13,7 @@ public abstract class TargetBase : MonoBehaviour
         // To be implemented in child classes
     }
 
-    protected virtual void DestroyTarget()
+    protected virtual void DestroyTarget(Vector3 lastHitPoint)
     {
         Destroy(gameObject);
     }
