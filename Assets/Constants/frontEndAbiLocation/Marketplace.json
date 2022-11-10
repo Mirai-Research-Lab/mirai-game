@@ -1,0 +1,150 @@
+[
+  {
+    "type": "error",
+    "name": "Marketplace__AlreadyListed",
+    "inputs": [
+      { "type": "address", "name": "nftAddress" },
+      { "type": "uint256", "name": "tokenId" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Marketplace__AmountTransferFailed",
+    "inputs": [{ "type": "address", "name": "withdrawer" }]
+  },
+  { "type": "error", "name": "Marketplace__NoAmountToWithdraw", "inputs": [] },
+  { "type": "error", "name": "Marketplace__NotAppoved", "inputs": [] },
+  { "type": "error", "name": "Marketplace__NotListed", "inputs": [] },
+  { "type": "error", "name": "Marketplace__NotOwnerOfNFT", "inputs": [] },
+  {
+    "type": "error",
+    "name": "Marketplace__NotSentEnoughEth",
+    "inputs": [
+      { "type": "uint256", "name": "sentValue" },
+      { "type": "uint256", "name": "price" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Marketplace__PriceShouldBeAboveZero",
+    "inputs": []
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "BoughtItem",
+    "inputs": [
+      { "type": "address", "name": "nftAddres", "indexed": true },
+      { "type": "address", "name": "buyer", "indexed": true },
+      { "type": "address", "name": "seller", "indexed": false },
+      { "type": "uint256", "name": "tokenId", "indexed": true },
+      { "type": "uint256", "name": "price", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "ItemAdded",
+    "inputs": [
+      { "type": "address", "name": "nftAddress", "indexed": true },
+      { "type": "uint256", "name": "tokenId", "indexed": true },
+      { "type": "uint256", "name": "price", "indexed": false },
+      { "type": "address", "name": "seller", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "ItemCancelled",
+    "inputs": [
+      { "type": "address", "name": "seller", "indexed": true },
+      { "type": "address", "name": "nftAddress", "indexed": true },
+      { "type": "uint256", "name": "tokenId", "indexed": true }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "buyItem",
+    "constant": false,
+    "stateMutability": "payable",
+    "payable": true,
+    "inputs": [
+      { "type": "address", "name": "nftAddress" },
+      { "type": "uint256", "name": "tokenId" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "cancelItem",
+    "constant": false,
+    "payable": false,
+    "inputs": [
+      { "type": "address", "name": "nftAddress" },
+      { "type": "uint256", "name": "tokenId" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "getAmountOwned",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [{ "type": "address", "name": "seller" }],
+    "outputs": [{ "type": "uint256", "name": "amount" }]
+  },
+  {
+    "type": "function",
+    "name": "getListingInfo",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [
+      { "type": "address", "name": "nftAddress" },
+      { "type": "uint256", "name": "tokenId" }
+    ],
+    "outputs": [
+      {
+        "type": "tuple",
+        "name": "listing",
+        "components": [
+          { "type": "uint256", "name": "price" },
+          { "type": "address", "name": "seller" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "listItem",
+    "constant": false,
+    "payable": false,
+    "inputs": [
+      { "type": "address", "name": "nftAddress" },
+      { "type": "uint256", "name": "tokenId" },
+      { "type": "uint256", "name": "price" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "updateItem",
+    "constant": false,
+    "payable": false,
+    "inputs": [
+      { "type": "address", "name": "nftAddress" },
+      { "type": "uint256", "name": "tokenId" },
+      { "type": "uint256", "name": "updatedPrice" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "withdrawAmount",
+    "constant": false,
+    "payable": false,
+    "inputs": [],
+    "outputs": []
+  }
+]
