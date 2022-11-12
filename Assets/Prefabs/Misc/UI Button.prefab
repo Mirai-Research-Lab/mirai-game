@@ -70,8 +70,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7259bab5c9d4513439aeaf26d8a01187, type: 2}
-  m_sharedMaterial: {fileID: 6591148863305531752, guid: 7259bab5c9d4513439aeaf26d8a01187,
+  m_fontAsset: {fileID: 11400000, guid: 10d8591a16d373b418d138472ec80d32, type: 2}
+  m_sharedMaterial: {fileID: -1062996841256222849, guid: 10d8591a16d373b418d138472ec80d32,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -259,4 +259,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8080896419876067917}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SignInCanvasManager, Assembly-CSharp
+        m_MethodName: SignIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
