@@ -44,3 +44,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5dd283e88dbd84b9dc6ff5da1c489e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWebGl: 0
+  GAME_CONTRACT_ADDRESS: 0x23e1A543a4C36B044E407B5fbaF95bAeEEaf5658
+  MIRAI_TOKEN_ADDRESS: 0xb5200FddB7130F2FF2F3f4B13AE432f1618B5FF7
+  network: goerli
+  chain: ethereum
+  chainId: 5
+  loadingComponent: {fileID: 0}
+  GAME_CONTRACT_ABI: '[   {     "type": "constructor",     "payable": false,    
+    "inputs": [       { "type": "uint256", "name": "initialTokenGivenToPlayers" },      
+    { "type": "uint256", "name": "tokenNeededToPlay" },       { "type": "uint256",
+    "name": "initialTokenSupply" },       { "type": "address", "name": "priceFeed"
+    }     ]   },   {     "type": "error",     "name": "GameContract__AmountTransferFailed",    
+    "inputs": []   },   { "type": "error", "name": "GameContract__NoEthSent", "inputs":
+    [] },   {     "type": "error",     "name": "GameContract__NotEnoughTokens",    
+    "inputs": [{ "type": "address", "name": "signer" }]   },   {     "type": "error",    
+    "name": "GameContract__PlayerAlreadyExists",     "inputs": []   },   {     "type":
+    "event",     "anonymous": false,     "name": "DonationReceived",     "inputs":
+    [       { "type": "address", "name": "signer", "indexed": true },       { "type":
+    "uint256", "name": "amount", "indexed": true }     ]   },   {     "type": "event",    
+    "anonymous": false,     "name": "GameStarted",     "inputs": [       { "type":
+    "address", "name": "signer", "indexed": true },       { "type": "uint256", "name":
+    "remainingToken", "indexed": true }     ]   },   {     "type": "event",     "anonymous":
+    false,     "name": "PlayerSigned",     "inputs": [{ "type": "address", "name":
+    "signer", "indexed": true }]   },   {     "type": "event",     "anonymous": false,    
+    "name": "TokenBought",     "inputs": [       { "type": "address", "name": "signer",
+    "indexed": true },       { "type": "uint256", "name": "tokenAmountBought", "indexed":
+    true }     ]   },   {     "type": "event",     "anonymous": false,     "name":
+    "WinnersPaid",     "inputs": [       { "type": "address[]", "name": "winners",
+    "indexed": true },       { "type": "uint256[]", "name": "prizes", "indexed":
+    true }     ]   },   {     "type": "function",     "name": "burn",     "constant":
+    false,     "payable": false,     "inputs": [{ "type": "address", "name": "signer"
+    }],     "outputs": [{ "type": "uint256", "name": "isApproved" }]   },   {    
+    "type": "function",     "name": "buyToken",     "constant": false,     "stateMutability":
+    "payable",     "payable": true,     "inputs": [{ "type": "address", "name": "signer"
+    }],     "outputs": []   },   {     "type": "function",     "name": "distributeToken",    
+    "constant": false,     "stateMutability": "payable",     "payable": true,    
+    "inputs": [       { "type": "address", "name": "winner1" },       { "type": "address",
+    "name": "winner2" },       { "type": "address", "name": "winner3" }     ],    
+    "outputs": []   },   {     "type": "function",     "name": "fundContract",    
+    "constant": false,     "stateMutability": "payable",     "payable": true,    
+    "inputs": [],     "outputs": []   },   {     "type": "function",     "name":
+    "getConversion",     "constant": true,     "stateMutability": "view",     "payable":
+    false,     "inputs": [{ "type": "uint256", "name": "amount" }],     "outputs":
+    [{ "type": "uint256", "name": "convertedAmount" }]   },   {     "type": "function",    
+    "name": "getInitialTokenGiven",     "constant": true,     "stateMutability":
+    "view",     "payable": false,     "inputs": [],     "outputs": [{ "type": "uint256",
+    "name": "amount" }]   },   {     "type": "function",     "name": "getNumberOfPlayers",    
+    "constant": true,     "stateMutability": "view",     "payable": false,     "inputs":
+    [],     "outputs": [{ "type": "uint256", "name": "number" }]   },   {     "type":
+    "function",     "name": "getPlayerInfo",     "constant": true,     "stateMutability":
+    "view",     "payable": false,     "inputs": [{ "type": "address", "name": "signer"
+    }],     "outputs": [       {         "type": "tuple",         "name": "playerInfo",        
+    "components": [           { "type": "uint256", "name": "id" },           { "type":
+    "uint256", "name": "tokenAmount" }         ]       }     ]   },   {     "type":
+    "function",     "name": "getPriceFeedDecimals",     "constant": true,     "stateMutability":
+    "view",     "payable": false,     "inputs": [],     "outputs": [{ "type": "uint8",
+    "name": "decimals" }]   },   {     "type": "function",     "name": "getTokenNeededToPlay",    
+    "constant": true,     "stateMutability": "view",     "payable": false,     "inputs":
+    [],     "outputs": [{ "type": "uint256", "name": "amount" }]   },   {     "type":
+    "function",     "name": "getTokenOf",     "constant": true,     "stateMutability":
+    "view",     "payable": false,     "inputs": [{ "type": "address", "name": "player"
+    }],     "outputs": [{ "type": "uint256", "name": "amount" }]   },   {     "type":
+    "function",     "name": "getTotalTokenSupply",     "constant": true,     "stateMutability":
+    "view",     "payable": false,     "inputs": [],     "outputs": [{ "type": "uint256",
+    "name": "amount" }]   },   {     "type": "function",     "name": "signIn",    
+    "constant": false,     "payable": false,     "inputs": [{ "type": "address",
+    "name": "signer" }],     "outputs": []   } ] '

@@ -1126,6 +1126,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4399450735321828488, guid: 9a573314c99490d4cb952481726f2290,
+        type: 3}
+      propertyPath: DATAPOST_ROUTE
+      value: http://localhost:3001/api/game/updateScore
+      objectReference: {fileID: 0}
     - target: {fileID: 4399450735321828489, guid: 9a573314c99490d4cb952481726f2290,
         type: 3}
       propertyPath: m_Name
@@ -1377,11 +1382,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SignUpCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6676323228590076725, guid: 7c45c1412ad163244962b46f299402e8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c45c1412ad163244962b46f299402e8, type: 3}

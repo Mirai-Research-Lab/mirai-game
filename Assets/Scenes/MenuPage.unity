@@ -125,6 +125,86 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &221273247
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1061250426797251622, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: currentSceneCanvas
+      value: 
+      objectReference: {fileID: 365427064}
+    - target: {fileID: 2781687900913445347, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_Name
+      value: SceneManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 345.41547
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 132.70747
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 650.7453
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520146947414777217, guid: 6ae1c3f9ed9ff6646be7bbd70b677848,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6ae1c3f9ed9ff6646be7bbd70b677848, type: 3}
+--- !u!1 &365427064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 973508231730449294, guid: 65b061b93b9997d4cabb38d25514a164,
+    type: 3}
+  m_PrefabInstance: {fileID: 973508232929957169}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &403510942
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +581,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1763487147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4912366199742055727, guid: 65b061b93b9997d4cabb38d25514a164,
+    type: 3}
+  m_PrefabInstance: {fileID: 973508232929957169}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2094857902
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,14 +625,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 973508231116561130, guid: 65b061b93b9997d4cabb38d25514a164,
-        type: 3}
-      propertyPath: m_text
-      value: ' Mirai Token Price Is 1 dollar per token
-
-        You need to buy at
-        least 0.02 eth token'
-      objectReference: {fileID: 0}
     - target: {fileID: 973508231730449294, guid: 65b061b93b9997d4cabb38d25514a164,
         type: 3}
       propertyPath: m_Name
@@ -678,24 +756,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2826229340800575425, guid: 5e81100bcd832d64bae020d4ab8d93f7,
         type: 3}
-      propertyPath: isWebGl
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2826229340800575425, guid: 5e81100bcd832d64bae020d4ab8d93f7,
-        type: 3}
-      propertyPath: currentPriceText
+      propertyPath: loadingComponent
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2826229340800575425, guid: 5e81100bcd832d64bae020d4ab8d93f7,
-        type: 3}
-      propertyPath: MIRAI_TOKEN_ADDRESS
-      value: 0xb5200FddB7130F2FF2F3f4B13AE432f1618B5FF7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2826229340800575425, guid: 5e81100bcd832d64bae020d4ab8d93f7,
-        type: 3}
-      propertyPath: GAME_CONTRACT_ADDRESS
-      value: 0x23e1A543a4C36B044E407B5fbaF95bAeEEaf5658
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1763487147}
     - target: {fileID: 2826229340800575454, guid: 5e81100bcd832d64bae020d4ab8d93f7,
         type: 3}
       propertyPath: m_RootOrder

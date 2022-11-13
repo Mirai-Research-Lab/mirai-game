@@ -17,15 +17,15 @@ public class Web3Interactions : MonoBehaviour
     [SerializeField] private string network = "goerli";
     [SerializeField] private string chain = "ethereum";
     [SerializeField] private string chainId = "5";
-
+    [SerializeField] private GameObject loadingComponent;
+    private bool isBurnTransactionSuccess = false;
     private BigInteger DECIMALS = BigInteger.Parse("1000000000000000000");
-    private string GAME_CONTRACT_ABI = "";
+    [SerializeField] private string GAME_CONTRACT_ABI = "";
     private bool isAlreadySignedUp = false;
+
+    //Uncomment the commented Web3Gl when building for WebGl
     private void Awake()
     {
-        string gameContractAbi = File.ReadAllText(Application.dataPath + "/Constants/FrontEndAbiLocation/GameContract.json");
-        print(gameContractAbi.ToString());
-        GAME_CONTRACT_ABI = gameContractAbi.ToString();
     }
     private async void Start()
     {
@@ -39,6 +39,8 @@ public class Web3Interactions : MonoBehaviour
 
     private async Task SignUp()
     {
+        if (loadingComponent != null)
+            loadingComponent.SetActive(true);
         if (!isWebGl)
         {
             await InitialSignInWithWebWallet();
@@ -47,12 +49,15 @@ public class Web3Interactions : MonoBehaviour
         {
             await InitialSignInWithWebGlWallet();
         }
+        if (loadingComponent != null)
+            loadingComponent.SetActive(false);
     }
 
     private async Task CheckIfSignedUp()
     {
         string method = "getPlayerInfo";
         string account = PlayerPrefs.GetString("Account");
+        Debug.Log("Account is : " + account);
         string[] obj = { account };
         string args = JsonConvert.SerializeObject(obj);
         string response = "There was error while fethcing data!";
@@ -85,10 +90,10 @@ public class Web3Interactions : MonoBehaviour
         catch (Exception e)
         {
             print(e.ToString());
-            await GetTokenBalance();
         }
         finally
         {
+            await GetTokenBalance();
             print(response);
         }
     }
@@ -101,7 +106,7 @@ public class Web3Interactions : MonoBehaviour
         string response = "There is some kind of error!";
         try
         {
-            response = await Web3GL.SendContract(method, GAME_CONTRACT_ABI, GAME_CONTRACT_ADDRESS, args, "0", "", "");
+            //response = await Web3GL.SendContract(method, GAME_CONTRACT_ABI, GAME_CONTRACT_ADDRESS, args, "0", "", "");
         }
         catch(Exception e)
         {
@@ -109,23 +114,26 @@ public class Web3Interactions : MonoBehaviour
         }
         finally
         {
+            await GetTokenBalance();
             print(response);
         }
     }
-    public async Task BuyToken(string weiAmount)
+    public async Task BuyToken(string weiAmount, GameObject loader = null)
     {
         if (!isWebGl)
         {
-            await BuyTokenWalletConnect(weiAmount);
+            await BuyTokenWalletConnect(weiAmount, loader);
         }
         else
         {
-            await BuyTokenWebGlConnect(weiAmount);
+            await BuyTokenWebGlConnect(weiAmount, loader);
         }
     }
 
-    private async Task BuyTokenWalletConnect(string weiAmount)
+    private async Task BuyTokenWalletConnect(string weiAmount, GameObject loader = null)
     {
+        if (loader != null)
+            loader.SetActive(true);
         string method = "buyToken";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -139,16 +147,24 @@ public class Web3Interactions : MonoBehaviour
         }
         catch (Exception e)
         {
+            if (loader != null)
+                loader.SetActive(false);
             print(e);
         }
         finally
         {
             print(response);
+            if (loader != null)
+                loader.SetActive(true);
             await GetTokenBalance();
+            if (loader != null)
+                loader.SetActive(false);
         }
     }
-    private async Task BuyTokenWebGlConnect(string weiAmount)
+    private async Task BuyTokenWebGlConnect(string weiAmount, GameObject loader = null)
     {
+        if (loader != null)
+            loader.SetActive(true);
         string method = "buyToken";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -156,28 +172,36 @@ public class Web3Interactions : MonoBehaviour
         string response = "Transaction Failed! Unable To Buy Token!";
         try
         {
-            response = await Web3GL.SendContract(method, GAME_CONTRACT_ABI, GAME_CONTRACT_ADDRESS, args, weiAmount, "", "");
+            //response = await Web3GL.SendContract(method, GAME_CONTRACT_ABI, GAME_CONTRACT_ADDRESS, args, weiAmount, "", "");
         }
         catch (Exception e)
         {
+            if (loader != null)
+                loader.SetActive(false);
             print(e);
         }
         finally
         {
             print(response);
+            if (loader != null)
+                loader.SetActive(true);
             await GetTokenBalance();
+            if (loader != null)
+                loader.SetActive(false);
         }
     }
-    public async Task BurnToken()
+    public async Task BurnToken(GameObject loader = null)
     {
         if (!isWebGl)
-            await BurnTokenWalletConnect();
+            await BurnTokenWalletConnect(loader);
         else
-            await BurnTokenWebGlConnect();
+            await BurnTokenWebGlConnect(loader);
     }
 
-    private async Task BurnTokenWalletConnect()
+    private async Task BurnTokenWalletConnect(GameObject loader = null)
     {
+        if (loader != null)
+            loader.SetActive(true);
         string method = "burn";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -187,20 +211,30 @@ public class Web3Interactions : MonoBehaviour
         try
         {
             response = await Web3Wallet.SendTransaction(chainId, GAME_CONTRACT_ADDRESS, "0", data, "", "");
+            isBurnTransactionSuccess = true;
         }
         catch(Exception e)
         {
+            isBurnTransactionSuccess = false;
+            if (loader != null)
+                loader.SetActive(false);
             Debug.Log(e);
         }
         finally
         {
             Debug.Log(response);
+            if (loader != null)
+                loader.SetActive(true);
             await GetTokenBalance();
+            if (loader != null)
+                loader.SetActive(false);
         }
     }
 
-    private async Task BurnTokenWebGlConnect()
+    private async Task BurnTokenWebGlConnect(GameObject loader = null)
     {
+        if (loader != null)
+            loader.SetActive(true);
         string method = "burn";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -208,31 +242,50 @@ public class Web3Interactions : MonoBehaviour
         string response = "Transaction Failed! You don't have enought MRI Tokens!";
         try
         {
-            response = await Web3GL.SendContract(method, GAME_CONTRACT_ABI, GAME_CONTRACT_ADDRESS, args, "0", "", "");
+            //response = await Web3GL.SendContract(method, GAME_CONTRACT_ABI, GAME_CONTRACT_ADDRESS, args, "0", "", "");
+            isBurnTransactionSuccess = true;
         }
         catch (Exception e)
         {
+            if (loader != null)
+                loader.SetActive(false);
+            isBurnTransactionSuccess = false;
             print(e);
         }
         finally
         {
             print(response);
+            if (loader != null)
+                loader.SetActive(true);
             await GetTokenBalance();
+            if (loader != null)
+                loader.SetActive(false);
         }
     }
     public async Task GetTokenBalance()
     {
-        try
-        {
-            string account = PlayerPrefs.GetString("Account");
-            BigInteger balanceOf = await ERC20.BalanceOf(chain, network, MIRAI_TOKEN_ADDRESS, account);
-            float balanceOfInteger = (float)BigInteger.Divide(balanceOf, DECIMALS);
-            PlayerPrefs.SetFloat("Token", balanceOfInteger);
-            print(balanceOfInteger.ToString());
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-        }
+        if(PlayerPrefs.HasKey("Account"))
+            try
+            {
+                await Task.Delay(25000);
+                string account = PlayerPrefs.GetString("Account");
+                BigInteger balanceOf = await ERC20.BalanceOf(chain, network, MIRAI_TOKEN_ADDRESS, account);
+                float balanceOfInteger = (float)BigInteger.Divide(balanceOf, DECIMALS);
+                PlayerPrefs.SetFloat("Token", balanceOfInteger);
+                print(balanceOfInteger.ToString());
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+    }
+
+    public bool getIsBurnTransactionSuccess()
+    {
+        return isBurnTransactionSuccess;
+    }
+    public void setIsBurnTransactionSuccess(bool value)
+    {
+        isBurnTransactionSuccess = value;
     }
 }

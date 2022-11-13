@@ -21,6 +21,14 @@ public class TargetGeneration : MonoBehaviour
     private int specialTargetContinuousCounter = 0;
     private int existingSimultaneousTarget = 0;
     private GameManager gameManager;
+    public static TargetGeneration instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+            Destroy(instance.gameObject);
+        instance = this;
+    }
     private void Start()
     {
         // StartCoroutine(GenerateTargets());

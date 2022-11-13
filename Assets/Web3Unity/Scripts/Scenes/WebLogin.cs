@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 #if UNITY_WEBGL
 public class WebLogin : MonoBehaviour
@@ -36,7 +37,7 @@ public class WebLogin : MonoBehaviour
         // reset login message
         SetConnectAccount("");
         // load next scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneLoader.instance.LoadNextSceneAsync();
     }
 
     public void OnSkip()

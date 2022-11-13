@@ -22,4 +22,10 @@ public class PlayerLook : MonoBehaviour
         //apply rotation to body
         transform.Rotate(Vector3.up * mouseX * Time.deltaTime * xSensitivity);
     }
+
+    public void setSensitivity(float amount)
+    {
+        xSensitivity = amount;
+        ySensitivity = amount;
+    }
 }

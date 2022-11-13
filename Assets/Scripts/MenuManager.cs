@@ -21,6 +21,7 @@ public class MenuManager : MonoBehaviour
             string formatedPlayerAddress = FormatAddressString(playerAddress);
             addressText.text = formatedPlayerAddress;
         }
+        Loader.SetActive(false);
     }
 
     private static string FormatAddressString(string playerAddress)
@@ -51,17 +52,27 @@ public class MenuManager : MonoBehaviour
         if(amountInFloat < 0.02f)
         {
             Debug.Log("You At Least Need to Send 0.01ETH");
+            if (Loader != null)
+                Loader.SetActive(false);
             return;
         }
         float amountInWei = (amountInFloat * DECIMALS);
-        await web3Manager.BuyToken(amountInWei.ToString("0.##"));
+        await web3Manager.BuyToken(amountInWei.ToString("0.##"), Loader);
     }
 
     public async void StartGame()
     {
-        Debug.Log("Pressed");
+        if (Loader != null)
+            Loader.SetActive(true);
         await web3Manager.BurnToken();
-        //Load next scene
+        if (Loader != null)
+            Loader.SetActive(false);
+        if(web3Manager.getIsBurnTransactionSuccess())
+        {
+            web3Manager.setIsBurnTransactionSuccess(false);
+            SceneLoader.instance.LoadNextSceneAsync();
+        }
+            
     }
 
     public void OpenShop()

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private TargetGeneration targetGeneration;
     public PlayerInput playerInput;
     private PlayerInput.OnFootActions onFoot;
     private PlayerMovement playerMovement;
@@ -22,6 +21,7 @@ public class InputManager : MonoBehaviour
         playerLook = GetComponent<PlayerLook>();
         animManager = GetComponent<AnimationManager>();
         onFoot.Jump.performed += ctx => playerMovement.Jump();
+        onFoot.Pause.performed += ctx => GameManager.instance.TogglePauseMenu();
     }
     private void Start()
     {
@@ -29,14 +29,14 @@ public class InputManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!targetGeneration.getIsOver())
+        if (!TargetGeneration.instance.getIsOver() && !GameManager.instance.getIsPaused())
             playerMovement.processMovement(onFoot.Movement.ReadValue<Vector2>());
         else
             onFoot.Jump.performed -= ctx => playerMovement.Jump();
     }
     private void Update()
     {
-        if (!targetGeneration.getIsOver())
+        if (!TargetGeneration.instance.getIsOver() && !GameManager.instance.getIsPaused())
         {
             playerLook.ProcessLook(onFoot.Look.ReadValue<Vector2>());
             PlayerShooting();

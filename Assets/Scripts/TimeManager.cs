@@ -8,6 +8,14 @@ public class TimeManager : MonoBehaviour
 
     private TargetGeneration targetGeneration;
     private GameManager gameManager;
+    public static TimeManager instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+            Destroy(instance);
+        instance = this;
+    }
     private void Start()
     {
         targetGeneration = GetComponent<TargetGeneration>();
@@ -31,7 +39,6 @@ public class TimeManager : MonoBehaviour
         else
         {
             targetGeneration.setIsOver(true);
-            gameManager.GetComponentInChildren<UpdateUi>().ShowEndPrompt();
             timeOfPlay = 0;
         }
     }

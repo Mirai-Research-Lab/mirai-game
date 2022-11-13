@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System.Threading.Tasks;
 public class WalletLogin: MonoBehaviour
 {
     public Toggle rememberMe;
@@ -37,13 +35,12 @@ public class WalletLogin: MonoBehaviour
         if (account.Length == 42 && expirationTime >= now) {
             // save account
             PlayerPrefs.SetString("Account", account);
-            if (rememberMe.isOn)
+            if (rememberMe != null && rememberMe.isOn)
                 PlayerPrefs.SetInt("RememberMe", 1);
             else
                 PlayerPrefs.SetInt("RememberMe", 0);
             print("Account: " + account);
-            // load next scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+        SceneLoader.instance.LoadNextSceneAsync();
     }
 }
