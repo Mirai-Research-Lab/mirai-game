@@ -6,6 +6,7 @@ public class NormalTarget : TargetBase
     [SerializeField] private float selfDestructTime = 3f;
     [SerializeField] private GameObject shatteredTarget;
     [SerializeField] private GameObject intactTarget;
+    [SerializeField] private AudioClip clip;
     private bool isItDestroyed = false;
     private void Start()
     {
@@ -13,6 +14,7 @@ public class NormalTarget : TargetBase
         intactTarget.SetActive(true);
         StartCoroutine(selfDestruct());
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        //audioSource = GetComponent<AudioSource>();
     }
 
     IEnumerator selfDestruct()
@@ -36,6 +38,7 @@ public class NormalTarget : TargetBase
                 childRb.AddExplosionForce(100f, lastHitPoint, 4f);
             }
         }
+        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
         Destroy(gameObject, 0.2f);   
     }
 

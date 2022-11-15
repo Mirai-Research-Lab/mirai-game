@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections;
 public class UpdateUi : MonoBehaviour
 {
     [SerializeField] private GameObject ammoBox;
@@ -13,6 +14,7 @@ public class UpdateUi : MonoBehaviour
     [SerializeField] private TextMeshPro startTimeCountdownText;
     [SerializeField] private PlayerShooting playerShooting;
     [SerializeField] private GameObject loader;
+    [SerializeField] private GameObject warningBox;
     [Header("Pause Menu Objects")]
     [SerializeField] private Slider sensiSlider;
     [SerializeField] private TextMeshProUGUI sensiText;
@@ -25,6 +27,7 @@ public class UpdateUi : MonoBehaviour
     [SerializeField] TextMeshProUGUI bonusPointsText;
     [SerializeField] TextMeshProUGUI prevHighestScoreText;
     [SerializeField] AudioClip clip;
+    [SerializeField] private bool isUsingWeb = true;
     private AudioSource source;
     private const float BONUS_POINT_MULTIPLIER = 10f;
     private int addBonus = 0;
@@ -49,6 +52,7 @@ public class UpdateUi : MonoBehaviour
         source = GetComponent<AudioSource>();
         loader.SetActive(false);
         endContainer.SetActive(false);
+        warningBox.SetActive(false);
     }
 
     private void Update()
@@ -57,12 +61,20 @@ public class UpdateUi : MonoBehaviour
         UpdateSensitivityUsingUI();
         if(count == 0 && TimeManager.instance.GetTime() <= 0f)
         {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                StartCoroutine(WarningPopUp());
+                return;
+            }
             count++;
             float accuracy = ((float)playerShooting.getShotsOnTarget() / (float)playerShooting.getShotsFired() * 100f);
             truncatedAccuracy = Mathf.Round(accuracy * 100f) / 100f;
             timeManager.GetComponent<GameManager>().addBonusPoints(truncatedAccuracy * BONUS_POINT_MULTIPLIER);
             addBonus++;
-            WebRequestHandler.instance.postSeissionData(loader);
+            if (isUsingWeb)
+                WebRequestHandler.instance.postSeissionData(loader, warningBox);
+            else
+                ShowEndPrompt();
         }
     }
 
@@ -124,7 +136,6 @@ public class UpdateUi : MonoBehaviour
         accuracyText.text = truncatedAccuracy.ToString("F2")+"%";
         bonusPointsText.text = (truncatedAccuracy * BONUS_POINT_MULTIPLIER).ToString();
         scorePointsText.text = (timeManager.GetComponent<GameManager>().getTotalPoints()).ToString();
-        Time.timeScale = 0f;
     }
     
     public void PlayClickAudio()
@@ -134,5 +145,13 @@ public class UpdateUi : MonoBehaviour
     public void LoadMenu()
     {
         SceneLoader.instance.LoadMenuAsync();
+    }
+
+    IEnumerator WarningPopUp()
+    {
+        warningBox.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        warningBox.SetActive(false);
+        ShowEndPrompt();
     }
 }

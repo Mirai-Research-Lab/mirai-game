@@ -39,6 +39,25 @@ public class SceneLoader : MonoBehaviour
         sceneLoadingCanvas.SetActive(false);
     }
 
+    public async void LoadSceneAsync(int sceneIndex)
+    {
+        Time.timeScale = 1f;
+        target = 0f;
+        loadingSlider.value = 0f;
+        var scene = SceneManager.LoadSceneAsync(sceneIndex);
+        scene.allowSceneActivation = false;
+        currentSceneCanvas.SetActive(false);
+        sceneLoadingCanvas.SetActive(true);
+        do
+        {
+            await Task.Delay(100);
+            target = scene.progress;
+        } while (scene.progress < 0.9f);
+        await Task.Delay(1000);
+        scene.allowSceneActivation = true;
+        sceneLoadingCanvas.SetActive(false);
+    }
+
     public async void LoadMenuAsync()
     {
         Time.timeScale = 1f;

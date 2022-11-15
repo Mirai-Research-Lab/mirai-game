@@ -647,6 +647,7 @@ MonoBehaviour:
   selfDestructTime: 1.8
   shatteredTarget: {fileID: 3868972901529112810}
   intactTarget: {fileID: 8109648301485088707}
+  clip: {fileID: 8300000, guid: b6d6700559ceda14d8b2a1d32ccfe7dd, type: 3}
 --- !u!1 &8109648301485088707
 GameObject:
   m_ObjectHideFlags: 0

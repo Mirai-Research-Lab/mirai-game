@@ -115,7 +115,8 @@ public class GameManager : MonoBehaviour
             updateUi.UpdateGameStartCounter(timeBeforeStart);
             yield return null;
         }
-        Destroy(hit.transform.gameObject);
+        if(hit.transform != null)
+            Destroy(hit.transform.gameObject);
         isGameStarted = true;
     }
 

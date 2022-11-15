@@ -685,6 +685,7 @@ MonoBehaviour:
   selfDestructTime: 1.7
   shatteredTarget: {fileID: 7713538721791374666}
   intactTarget: {fileID: 7030791957064025317}
+  clip: {fileID: 8300000, guid: b6d6700559ceda14d8b2a1d32ccfe7dd, type: 3}
 --- !u!1001 &8559281746598302687
 PrefabInstance:
   m_ObjectHideFlags: 0

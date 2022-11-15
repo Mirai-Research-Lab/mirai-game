@@ -101,7 +101,7 @@ MonoBehaviour:
   gunProps: {fileID: 11400000, guid: 3be6665bfca497349930608c9ac89d33, type: 2}
   ps: {fileID: 7045902536871346436}
   lights: {fileID: 5263591049318506576}
-  damageAmount: 40
+  damageAmount: 55
   fireRate: 5
   clip: {fileID: 8300000, guid: a552613eea0b6cb49bfd1782ec441e8d, type: 3}
 --- !u!1001 &3375339648778371571

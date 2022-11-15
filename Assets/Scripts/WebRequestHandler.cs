@@ -27,7 +27,11 @@ public class WebRequestHandler : MonoBehaviour
     }
     public void submitSignIn(string email, string password, TextMeshProUGUI warningText, GameObject loaderComponent = null)
     {
-        // API call
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "ERROR! Make Sure You Are Connected To The Internet!";
+            return;
+        }
         StartCoroutine(signIn(email, password, warningText, loaderComponent));
     }   
     IEnumerator signIn(string email, string password, TextMeshProUGUI warningText, GameObject loaderComponent = null)
@@ -85,11 +89,17 @@ public class WebRequestHandler : MonoBehaviour
         if (loaderComponent != null)
             loaderComponent.SetActive(false);
     }
-    public void postSeissionData(GameObject loaderComponent = null)
+    public void postSeissionData(GameObject loaderComponent = null, GameObject warningBox = null)
     {
-        StartCoroutine(PostWinData(loaderComponent));
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            StartCoroutine(WarningPopUp(warningBox));
+            UpdateUi.instance.ShowEndPrompt();
+            return;
+        }
+        StartCoroutine(PostWinData(loaderComponent, warningBox));
     }
-    IEnumerator PostWinData(GameObject loaderComponent = null)
+    IEnumerator PostWinData(GameObject loaderComponent = null, GameObject warningBox = null)
     {
         if (loaderComponent != null)
             loaderComponent.SetActive(true);
@@ -103,12 +113,16 @@ public class WebRequestHandler : MonoBehaviour
         else
         {
             Debug.LogError("No Email Found!");
+            if(warningBox != null)
+                StartCoroutine(WarningPopUp(warningBox));
         }
         if(seissionData.email == null || seissionData.email == "")
         {
             if (loaderComponent != null)
                 loaderComponent.SetActive(false);
             Debug.Log("not working!");
+            if (warningBox != null)
+                StartCoroutine(WarningPopUp(warningBox));
             UpdateUi.instance.ShowEndPrompt();
             yield return null;
         }
@@ -132,6 +146,8 @@ public class WebRequestHandler : MonoBehaviour
                 {
                     if (loaderComponent != null)
                         loaderComponent.SetActive(false);
+                    if (warningBox != null)
+                        StartCoroutine(WarningPopUp(warningBox));
                     req.Dispose();
                     break;
                 }
@@ -143,10 +159,22 @@ public class WebRequestHandler : MonoBehaviour
                 PlayerPrefs.SetString("PrevHighestScore", jsonResponse.highest_score.ToString());
                 req.Dispose();
             }
+            else
+            {
+                if (warningBox != null)
+                    StartCoroutine(WarningPopUp(warningBox));
+            }
             req.Dispose();
             if (loaderComponent != null)
                 loaderComponent.SetActive(false);
             UpdateUi.instance.ShowEndPrompt();
         }
+    }
+
+    IEnumerator WarningPopUp(GameObject warningBox)
+    {
+        warningBox.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        warningBox.SetActive(false);
     }
 }

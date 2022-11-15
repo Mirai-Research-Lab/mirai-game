@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI addressText;
@@ -13,6 +14,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject Loader;
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private TextMeshProUGUI volumeText;
+    [SerializeField] private TextMeshProUGUI warningText;
+    [SerializeField] private GameObject warningBox;
     private const float DECIMALS = 1000000000000000000;
     private Sound[] tracks;
     private void Start()
@@ -69,6 +72,12 @@ public class MenuManager : MonoBehaviour
     }
     public async void buyToken()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return;
+        }
         string amount = "0.0";
         if (ethInputField.text != null && ethInputField.text != "")
             amount = ethInputField.text;
@@ -86,6 +95,12 @@ public class MenuManager : MonoBehaviour
 
     public async void StartGame()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return;
+        }
         if (Loader != null)
             Loader.SetActive(true);
         await web3Manager.BurnToken();
@@ -99,6 +114,10 @@ public class MenuManager : MonoBehaviour
             
     }
 
+    public void StartDemoGame()
+    {
+        SceneLoader.instance.LoadSceneAsync(5);
+    }
     public void OpenShop()
     {
         menuContainer.SetActive(false);
@@ -126,5 +145,11 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Token");
         PlayerPrefs.DeleteKey("Email");
         Application.Quit();
+    }
+    IEnumerator WarningPopUp()
+    {
+        warningBox.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        warningBox.SetActive(false);
     }
 }

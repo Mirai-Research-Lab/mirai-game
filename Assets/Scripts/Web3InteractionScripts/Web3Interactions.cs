@@ -18,6 +18,8 @@ public class Web3Interactions : MonoBehaviour
     [SerializeField] private string chain = "ethereum";
     [SerializeField] private string chainId = "5";
     [SerializeField] private GameObject loadingComponent;
+    [SerializeField] TextMeshProUGUI warningText;
+    [SerializeField] GameObject warningBox;
     private bool isBurnTransactionSuccess = false;
     private BigInteger DECIMALS = BigInteger.Parse("1000000000000000000");
     [SerializeField] private string GAME_CONTRACT_ABI = "";
@@ -26,6 +28,7 @@ public class Web3Interactions : MonoBehaviour
     //Uncomment the commented Web3Gl when building for WebGl
     private void Awake()
     {
+        warningBox.SetActive(false);
     }
     private async void Start()
     {
@@ -55,6 +58,12 @@ public class Web3Interactions : MonoBehaviour
 
     private async Task CheckIfSignedUp()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return; 
+        }
         string method = "getPlayerInfo";
         string account = PlayerPrefs.GetString("Account");
         Debug.Log("Account is : " + account);
@@ -69,6 +78,8 @@ public class Web3Interactions : MonoBehaviour
         catch (Exception e)
         {
             print(e);
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
         }
         finally
         {
@@ -77,6 +88,12 @@ public class Web3Interactions : MonoBehaviour
     }
     private async Task InitialSignInWithWebWallet()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return;
+        }
         string method = "signIn";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -132,8 +149,13 @@ public class Web3Interactions : MonoBehaviour
 
     private async Task BuyTokenWalletConnect(string weiAmount, GameObject loader = null)
     {
-        if (loader != null)
-            loader.SetActive(true);
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return;
+        }
+        loadingComponent.SetActive(true);
         string method = "buyToken";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -147,18 +169,17 @@ public class Web3Interactions : MonoBehaviour
         }
         catch (Exception e)
         {
-            if (loader != null)
-                loader.SetActive(false);
+            loadingComponent.SetActive(false);
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
             print(e);
         }
         finally
         {
             print(response);
-            if (loader != null)
-                loader.SetActive(true);
+            loadingComponent.SetActive(true);
             await GetTokenBalance();
-            if (loader != null)
-                loader.SetActive(false);
+            loadingComponent.SetActive(false);
         }
     }
     private async Task BuyTokenWebGlConnect(string weiAmount, GameObject loader = null)
@@ -200,8 +221,13 @@ public class Web3Interactions : MonoBehaviour
 
     private async Task BurnTokenWalletConnect(GameObject loader = null)
     {
-        if (loader != null)
-            loader.SetActive(true);
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return;
+        }
+        loadingComponent.SetActive(true);
         string method = "burn";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -216,18 +242,17 @@ public class Web3Interactions : MonoBehaviour
         catch(Exception e)
         {
             isBurnTransactionSuccess = false;
-            if (loader != null)
-                loader.SetActive(false);
+            loadingComponent.SetActive(false);
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
             Debug.Log(e);
         }
         finally
         {
             Debug.Log(response);
-            if (loader != null)
-                loader.SetActive(true);
+            loadingComponent.SetActive(true);
             await GetTokenBalance();
-            if (loader != null)
-                loader.SetActive(false);
+            loadingComponent.SetActive(false);
         }
     }
 
@@ -264,7 +289,13 @@ public class Web3Interactions : MonoBehaviour
     }
     public async Task GetTokenBalance()
     {
-        if(PlayerPrefs.HasKey("Account"))
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            StartCoroutine(WarningPopUp());
+            return;
+        }
+        if (PlayerPrefs.HasKey("Account"))
             try
             {
                 await Task.Delay(25000);
@@ -277,7 +308,17 @@ public class Web3Interactions : MonoBehaviour
             catch (Exception e)
             {
                 Debug.Log(e);
+                loadingComponent.SetActive(false);
+                warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+                StartCoroutine(WarningPopUp());
             }
+    }
+
+    IEnumerator WarningPopUp()
+    {
+        warningBox.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        warningBox.SetActive(false);
     }
 
     public bool getIsBurnTransactionSuccess()
