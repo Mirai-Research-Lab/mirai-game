@@ -110,11 +110,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1072532490320876641}
     m_Modifications:
+    - target: {fileID: 7952788890465381227, guid: 6c6cc56d82436974992600ba2876f9b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8400857732227798948, guid: 6c6cc56d82436974992600ba2876f9b6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1072532490320876640}
+    - target: {fileID: 8400857733285598993, guid: 6c6cc56d82436974992600ba2876f9b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400857733651223647, guid: 6c6cc56d82436974992600ba2876f9b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400857733783207112, guid: 6c6cc56d82436974992600ba2876f9b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400857733891671413, guid: 6c6cc56d82436974992600ba2876f9b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400857734188442248, guid: 6c6cc56d82436974992600ba2876f9b6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8928106110826071596, guid: 6c6cc56d82436974992600ba2876f9b6,
         type: 3}
       propertyPath: timeManager

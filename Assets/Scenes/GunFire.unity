@@ -1118,18 +1118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58734ff5ea45e0c4581615528960f6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1991100476 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1072532490320876642, guid: b91f8ddd1ef696e4d91357ec7bf8cb95,
-    type: 3}
-  m_PrefabInstance: {fileID: 1072532492089154651}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b1534dd35d8304099e956d42ae7fcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2000711439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1285,12 +1273,7 @@ PrefabInstance:
     - target: {fileID: 112783725818939973, guid: b91f8ddd1ef696e4d91357ec7bf8cb95,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 789193945255845504, guid: b91f8ddd1ef696e4d91357ec7bf8cb95,
-        type: 3}
-      propertyPath: timeOfPlay
-      value: 120
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1072532490320876641, guid: b91f8ddd1ef696e4d91357ec7bf8cb95,
         type: 3}
@@ -1407,11 +1390,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7867065573104684840, guid: b91f8ddd1ef696e4d91357ec7bf8cb95,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b91f8ddd1ef696e4d91357ec7bf8cb95, type: 3}
 --- !u!1001 &1905632834084303525
@@ -1490,14 +1468,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1618214789, guid: e5bf86d61f50e584d92ac965150fb63a, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 1991100475}
-    - target: {fileID: 1618214789, guid: e5bf86d61f50e584d92ac965150fb63a, type: 3}
-      propertyPath: targetGeneration
-      value: 
-      objectReference: {fileID: 1991100476}
     - target: {fileID: 3886261710425258999, guid: e5bf86d61f50e584d92ac965150fb63a,
         type: 3}
       propertyPath: gameManager

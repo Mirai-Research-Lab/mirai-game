@@ -6,10 +6,13 @@ public class AnimationManager : MonoBehaviour
 {
     private Animator anim;
     private PlayerShooting playerShooting;
+    [SerializeField] private AudioClip reloadClip;
+    private AudioSource reloadAudioSource;
     private void Awake()
     {
         anim = GetComponent<Animator>();
         playerShooting = GetComponent<PlayerShooting>();
+        reloadAudioSource = GetComponents<AudioSource>()[3];
     }
     public void GunSetAnimation(float input)
     {
@@ -22,6 +25,8 @@ public class AnimationManager : MonoBehaviour
     {
         if(playerShooting.getIsReloading())
         {
+            if(!reloadAudioSource.isPlaying)
+                reloadAudioSource.PlayOneShot(reloadClip);
             anim.SetTrigger("Reload");
         }
     }

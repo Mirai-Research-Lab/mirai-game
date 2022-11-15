@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject lights;
     [SerializeField] private int damageAmount = 20;
     [SerializeField] private float fireRate = 5f;
+    [SerializeField] private AudioClip clip;
     private void Awake()
     {
         ps = GetComponentInChildren<ParticleSystem>();
@@ -57,5 +58,10 @@ public class Weapon : MonoBehaviour
     public float getFireRate()
     {
         return fireRate;
+    }
+
+    public AudioClip getAudioClip()
+    {
+        return clip;
     }
 }

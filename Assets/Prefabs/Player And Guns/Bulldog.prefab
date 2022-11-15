@@ -103,6 +103,7 @@ MonoBehaviour:
   lights: {fileID: 242062850098951199}
   damageAmount: 25
   fireRate: 10
+  clip: {fileID: 8300000, guid: ea5d5dcdf60e8cb4d97f2559ce8dd8d1, type: 3}
 --- !u!1001 &4351250901237621106
 PrefabInstance:
   m_ObjectHideFlags: 0

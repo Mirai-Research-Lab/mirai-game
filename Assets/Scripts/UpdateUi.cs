@@ -24,13 +24,15 @@ public class UpdateUi : MonoBehaviour
     [SerializeField] TextMeshProUGUI accuracyText;
     [SerializeField] TextMeshProUGUI bonusPointsText;
     [SerializeField] TextMeshProUGUI prevHighestScoreText;
+    [SerializeField] AudioClip clip;
+    private AudioSource source;
     private const float BONUS_POINT_MULTIPLIER = 10f;
     private int addBonus = 0;
     private PlayerLook playerLook;
     private Weapon weapon;
     private int count = 0;
     public static UpdateUi instance;
-
+    private float truncatedAccuracy;
     private void Awake()
     {
         if (instance != null)
@@ -44,6 +46,7 @@ public class UpdateUi : MonoBehaviour
         ammoBox.SetActive(false);
         timeContainer.SetActive(false);
         playerLook = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLook>();
+        source = GetComponent<AudioSource>();
         loader.SetActive(false);
         endContainer.SetActive(false);
     }
@@ -55,6 +58,10 @@ public class UpdateUi : MonoBehaviour
         if(count == 0 && TimeManager.instance.GetTime() <= 0f)
         {
             count++;
+            float accuracy = ((float)playerShooting.getShotsOnTarget() / (float)playerShooting.getShotsFired() * 100f);
+            truncatedAccuracy = Mathf.Round(accuracy * 100f) / 100f;
+            timeManager.GetComponent<GameManager>().addBonusPoints(truncatedAccuracy * BONUS_POINT_MULTIPLIER);
+            addBonus++;
             WebRequestHandler.instance.postSeissionData(loader);
         }
     }
@@ -114,19 +121,16 @@ public class UpdateUi : MonoBehaviour
         shotsHitText.text = playerShooting.getShotsOnTarget().ToString();
         totalShotsText.text = playerShooting.getShotsFired().ToString();
         prevHighestScoreText.text = PlayerPrefs.GetString("PrevHighestScore");
-        float accuracy = ((float)playerShooting.getShotsOnTarget() / (float)playerShooting.getShotsFired() * 100f);
-        float truncatedAccuracy = Mathf.Round(accuracy * 100f) / 100f;
-        if (addBonus == 0)
-        {
-            timeManager.GetComponent<GameManager>().updateTotalPoints(truncatedAccuracy * BONUS_POINT_MULTIPLIER);
-            addBonus++;
-        }
         accuracyText.text = truncatedAccuracy.ToString("F2")+"%";
         bonusPointsText.text = (truncatedAccuracy * BONUS_POINT_MULTIPLIER).ToString();
-        scorePointsText.text = (timeManager.GetComponent<GameManager>().getTotalPoints()+ truncatedAccuracy * BONUS_POINT_MULTIPLIER).ToString();
+        scorePointsText.text = (timeManager.GetComponent<GameManager>().getTotalPoints()).ToString();
         Time.timeScale = 0f;
     }
-
+    
+    public void PlayClickAudio()
+    {
+        source.PlayOneShot(clip);
+    }
     public void LoadMenu()
     {
         SceneLoader.instance.LoadMenuAsync();

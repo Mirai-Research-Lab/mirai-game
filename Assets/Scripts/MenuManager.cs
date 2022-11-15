@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 public class MenuManager : MonoBehaviour
@@ -12,7 +11,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject menuContainer;
     [SerializeField] private GameObject optionsContainer;
     [SerializeField] private GameObject Loader;
+    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private TextMeshProUGUI volumeText;
     private const float DECIMALS = 1000000000000000000;
+    private Sound[] tracks;
     private void Start()
     {
         if (PlayerPrefs.HasKey("Account"))
@@ -21,7 +23,16 @@ public class MenuManager : MonoBehaviour
             string formatedPlayerAddress = FormatAddressString(playerAddress);
             addressText.text = formatedPlayerAddress;
         }
+        if(!PlayerPrefs.HasKey("Volume"))
+        {
+            PlayerPrefs.SetFloat("Volume", volumeSlider.value);
+        }
+        else
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+        }
         Loader.SetActive(false);
+        tracks = AudioManager.instance.GetTracks();
     }
 
     private static string FormatAddressString(string playerAddress)
@@ -38,11 +49,24 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-
+        AdjustMasterVolume();
         if (PlayerPrefs.HasKey("Token"))
             tokenText.text = "Token- " + PlayerPrefs.GetFloat("Token").ToString();
     }
 
+    private void AdjustMasterVolume()
+    {
+        volumeText.text = (volumeSlider.value * 100f).ToString("0.00");
+        if (tracks.Length > 0)
+        {
+            tracks[0].audioSource.volume = volumeSlider.value;
+            tracks[1].audioSource.volume = volumeSlider.value;
+        }
+    }
+    public void OnVolumeChanged(float value)
+    {
+        PlayerPrefs.SetFloat("Volume", volumeSlider.value);
+    }
     public async void buyToken()
     {
         string amount = "0.0";

@@ -16,6 +16,7 @@ MonoBehaviour:
   id: 0
   weaponPrefab: {fileID: 1165970728002187002, guid: dc24e996b19916a47a20fd684a6d9cb5,
     type: 3}
-  pickUpPrefab: {fileID: 0}
+  pickUpPrefab: {fileID: 8889430004855004023, guid: 4a29ae6ef2c1c8e4ebf9bf61282be226,
+    type: 3}
   ammo: 25
   damage: 35

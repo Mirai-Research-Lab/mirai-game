@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Audio;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
@@ -13,6 +13,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private ParticleSystem hitEffectVfx;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private AudioClip akAudioClip;
+    [SerializeField] private AudioClip bullAudioClip;
 
     private WeaponRecoil recoilScript;
     private AnimationManager animManager;
@@ -22,10 +24,12 @@ public class PlayerShooting : MonoBehaviour
     private bool isReloading = false;
     private int shotsFired = 0;
     private int shotsOnTarget = 0;
-    Weapon wep;
+    private AudioSource gunAudio;
+    private Weapon wep;
     private void Start()
     {
         animManager = GetComponent<AnimationManager>();
+        gunAudio = GetComponents<AudioSource>()[0];
         recoilScript = GetComponentInChildren<WeaponRecoil>();
     }
     private void Update()
@@ -48,6 +52,7 @@ public class PlayerShooting : MonoBehaviour
                 wep.reduceAmmo();
                 f_shootInterval = Time.timeSinceLevelLoad + (1 / f_fireRate);
                 processShooting();
+                gunAudio.PlayOneShot(wep.getAudioClip());
             }
         }
     }
@@ -57,6 +62,7 @@ public class PlayerShooting : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
+            //functionality
             if (gameManager.GetIsGameStarted())
                 shotsFired++;
 

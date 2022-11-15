@@ -232,12 +232,30 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: W to move forward, A to move left, D to move right, S to move backward.
-        Hold down Left Mouse Button to shoot.
+        Hold down Left Mouse Button to shoot. Press ESC to open pause menu and adjust
+        mouse sensitivity.
+      objectReference: {fileID: 0}
+    - target: {fileID: 327479239199278383, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 26.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 327479239199278383, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 26.6
       objectReference: {fileID: 0}
     - target: {fileID: 914293067875434049, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336689074382446686, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_text
+      value: These are special targets which are worth 40 points. These are very
+        durable and stay for a relatively longer period of time when compared to
+        normal targets.
       objectReference: {fileID: 0}
     - target: {fileID: 1743724805271042369, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
@@ -334,6 +352,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 96.906
       objectReference: {fileID: 0}
+    - target: {fileID: 5158778934119966854, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 21.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158778934119966854, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 21.49
+      objectReference: {fileID: 0}
     - target: {fileID: 5176873256822767578, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -355,6 +383,22 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6239032321057973186, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_text
+      value: Once you start the game, even if you are on pause menu, the time will
+        not be stopped. So be careful! You are advised to set sensitvity before starting!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -362,13 +406,33 @@ PrefabInstance:
       objectReference: {fileID: 1905667626311983776}
     - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NextPage
       objectReference: {fileID: 0}
     - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: InstructionCanvasManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ClipManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309983996584436168, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6479659271280893741, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
@@ -390,6 +454,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -3.458
       objectReference: {fileID: 0}
+    - target: {fileID: 6557421756505892783, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_text
+      value: These are bad targets which are worth negative 35 points. These stay
+        for a very short span but break in one shot.
+      objectReference: {fileID: 0}
     - target: {fileID: 6963813082537482952, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -402,8 +472,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
@@ -412,8 +497,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ClipManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395368836918013596, guid: d2b03d91fa20e5e459e361cdfec151fe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7821626635677322659, guid: d2b03d91fa20e5e459e361cdfec151fe,
         type: 3}

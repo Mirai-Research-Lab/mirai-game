@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private TimeManager timeManager;
     private float startingTime;
     private float totalPoints;
+    private float pointsEarnedInGame;
     private bool isPaused;
     public static GameManager instance;
 
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
     private void UpdateGameState()
     {
         pointsTextHolder.SetActive(isGameStarted);
-        pointsText.text = totalPoints.ToString();
+        pointsText.text = pointsEarnedInGame.ToString();
         if (isGameStarted)
         {
             float currentTime = timeManager.GetTime();
@@ -78,13 +79,18 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(isPaused);
         }
     }
-    public void updateTotalPoints(float amount = 20f)
+    public void updateTotalPoints(float amount = 0f)
     {
         totalPoints += amount;
+        pointsEarnedInGame = totalPoints;
         if (totalPoints <= 0)
             totalPoints = 0;
     }
     
+    public void addBonusPoints(float amount)
+    {
+        totalPoints += amount;
+    }
     public float getTotalPoints()
     {
         return totalPoints;
