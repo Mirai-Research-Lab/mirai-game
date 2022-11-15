@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d563e70f56e9246bf6bd74d6aae098, type: 3}
+  m_Name: Sherrif
+  m_EditorClassIdentifier: 
+  gunName: Sherrif
+  id: 2
+  weaponPrefab: {fileID: 4172291050315289252, guid: 7258f3cad7bcfef40bf4baa819d52e35,
+    type: 3}
+  pickUpPrefab: {fileID: 0}
+  ammo: 8
+  damage: 100

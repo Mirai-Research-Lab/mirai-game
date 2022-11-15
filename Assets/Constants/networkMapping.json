@@ -1,0 +1,28 @@
+{
+  "5": {
+    "Marketplace": ["0x0f5bb242f5F060eE2B5ba1a0f129d5c04A07a454"],
+    "GameContract": [
+      "0x6C383D63dd3DC47Fc36A756d440bF9C7E499e432",
+      "0x2e034600CD47Ec8c0587762f84e849D35E6a2F29",
+      "0xBC7CB5B40Cd783ba32f7A6C7b3E9484A017788e2"
+    ],
+    "IpfsNFT": ["0x7CcD0efe93F18ABC3c9C8b394409426528409954"],
+    "MiraiToken": [
+      "0x20f1d31358308Bbb2d3CA014760FaffF1ec76Ce9",
+      "0x7Efa7F3fC6017E5a534F8A272E5323856A8C3379",
+      "0xed140c09703452d757Bf7dcAe83F4051b6E88B8d"
+    ]
+  },
+  "1337": { "Marketplace": [], "GameContract": [], "IpfsNFT": [] },
+  "31337": {
+    "Marketplace": ["0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"],
+    "GameContract": [
+      "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+    ],
+    "IpfsNFT": [
+      "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6b35c954e90ffb74f9062d6fd64687f0
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Techno Hideo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: fafbf081b2a82ff4f9174558e644777d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
