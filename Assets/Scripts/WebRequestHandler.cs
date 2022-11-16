@@ -2,11 +2,17 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
+using System.Threading.Tasks;
 public class WebRequestHandler : MonoBehaviour
 {
     [SerializeField] string SIGNIN_ROUTE = "http://localhost:3001/api/auth/signin";
     [SerializeField] string DATAPOST_ROUTE = "http://localhost:3001/api/game/updateScore";
+    [SerializeField] string CHECK_EMAIL_ROUTE = "https://mirai-backend-kappa.vercel.app/api/wallet/gameWalletCheck";
+    [SerializeField] string SET_EMAIL_ROUTE = "https://mirai-backend-kappa.vercel.app/api/player/updateAddress";
     public static WebRequestHandler instance;
+
+    private const string ADD_NEW_WALLET_RESPONSE = "Added New wallet";
+    private const string WALLET_EXISTS = "Wallet exists";
     private void Awake()
     {
         if (instance != null)
@@ -24,6 +30,12 @@ public class WebRequestHandler : MonoBehaviour
     {
         public float score;
         public string email;
+    }
+
+    public class CheckData
+    {
+        public string email;
+        public string address;
     }
     public void submitSignIn(string email, string password, TextMeshProUGUI warningText, GameObject loaderComponent = null)
     {
@@ -171,10 +183,133 @@ public class WebRequestHandler : MonoBehaviour
         }
     }
 
+    public void CheckIfUserExists(GameObject warningBox, GameObject loaderComponent=null, GameObject kickPrompt = null)
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable && warningBox != null)
+        {
+            StartCoroutine(WarningPopUp(warningBox));
+            UpdateUi.instance.ShowEndPrompt();
+            return;
+        }
+        StartCoroutine(SendCheckRequest(loaderComponent, warningBox, kickPrompt));
+    }
+
+    IEnumerator SendCheckRequest (GameObject loaderComponent, GameObject warningBox, GameObject kickPrompt)
+    {
+        if (loaderComponent != null)
+            loaderComponent.SetActive(true);
+        var checkData = new CheckData();
+        if (PlayerPrefs.HasKey("Email"))
+        {
+            checkData.email = PlayerPrefs.GetString("Email");
+            Debug.Log(checkData.email);
+        }
+        checkData.address = PlayerPrefs.GetString("Account");
+        string jsonData = JsonUtility.ToJson(checkData);
+
+        var req = new UnityWebRequest(CHECK_EMAIL_ROUTE, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+
+        req.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        req.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+        float timeStart = 0f;
+        var handler = req.SendWebRequest();
+        while (!handler.isDone)
+        {
+            timeStart += Time.deltaTime;
+            if (timeStart > 10f)
+            {
+                if (loaderComponent != null)
+                    loaderComponent.SetActive(false);
+                PlayerPrefs.SetInt("Checked", 0);
+                req.Dispose();
+                break;
+            }
+            yield return null;
+        }
+        if (req.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("The result is:" + req.downloadHandler.text);
+            PlayerPrefs.SetInt("Checked", 1);
+            if(req.downloadHandler.text == ADD_NEW_WALLET_RESPONSE)
+            {
+                StartCoroutine(PostNewWalletAdded(loaderComponent, warningBox, kickPrompt));
+            }
+        }
+        else
+        {
+            Debug.Log("The error is : " + req.downloadHandler.text);
+            PlayerPrefs.SetInt("Checked", 0);
+            ShowOnExistPrompt(kickPrompt);
+        }
+        if (loaderComponent != null)
+            loaderComponent.SetActive(false);
+        req.Dispose();
+    }
+
+    IEnumerator PostNewWalletAdded(GameObject loaderComponent, GameObject warningBox, GameObject kickPrompt)
+    {
+        if (loaderComponent != null)
+            loaderComponent.SetActive(true);
+        var checkData = new CheckData();
+        if (PlayerPrefs.HasKey("Email"))
+        {
+            checkData.email = PlayerPrefs.GetString("Email");
+        }
+        checkData.address = PlayerPrefs.GetString("Account");
+        string jsonData = JsonUtility.ToJson(checkData);
+
+        var req = new UnityWebRequest(SET_EMAIL_ROUTE, "PUT");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+
+        req.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        req.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+        float timeStart = 0f;
+        var handler = req.SendWebRequest();
+        while (!handler.isDone)
+        {
+            timeStart += Time.deltaTime;
+            if (timeStart > 10f)
+            {
+                if (loaderComponent != null)
+                    loaderComponent.SetActive(false);
+                StartCoroutine(WarningPopUp(warningBox));
+                req.Dispose();
+                break;
+            }
+            yield return null;
+        }
+        if (req.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Sucessfully added");
+        }
+        else
+        {
+            Debug.Log(req.downloadHandler.text);
+            Debug.Log("Error while adding");
+        }
+        if (loaderComponent != null)
+            loaderComponent.SetActive(false);
+        req.Dispose();
+    }
     IEnumerator WarningPopUp(GameObject warningBox)
     {
         warningBox.SetActive(true);
         yield return new WaitForSeconds(2f);
         warningBox.SetActive(false);
+    }
+
+    private void ShowOnExistPrompt(GameObject kickPrompt)
+    {
+        kickPrompt.SetActive(true);
+    }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Account");
+        PlayerPrefs.DeleteKey("Email");
+        PlayerPrefs.DeleteKey("Checked");
+        PlayerPrefs.DeleteKey("Token");
     }
 }

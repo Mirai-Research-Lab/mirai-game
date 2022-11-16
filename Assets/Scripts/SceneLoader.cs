@@ -17,7 +17,6 @@ public class SceneLoader : MonoBehaviour
             Destroy(instance.gameObject);
         instance = this;
         DontDestroyOnLoad(this);
-        Debug.Log(PlayerPrefs.GetString("Account"));
     }
 
     public async void LoadNextSceneAsync()

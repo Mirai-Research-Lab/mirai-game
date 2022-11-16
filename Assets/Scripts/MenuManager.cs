@@ -2,6 +2,8 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Threading.Tasks;
+
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI addressText;
@@ -16,9 +18,35 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI volumeText;
     [SerializeField] private TextMeshProUGUI warningText;
     [SerializeField] private GameObject warningBox;
+    [SerializeField] private GameObject kickPrompt;
     private const float DECIMALS = 1000000000000000000;
     private Sound[] tracks;
     private void Start()
+    {
+        kickPrompt.SetActive(false);
+        if (!PlayerPrefs.HasKey("Checked"))
+        {
+            PlayerPrefs.SetInt("Checked", 0);
+            CheckIfAnotherUserExists();
+        }
+        else
+        {
+            if(PlayerPrefs.GetInt("Checked") == 0)
+            {
+                CheckIfAnotherUserExists();
+            }
+        }
+        // Set up start screen UI
+        ManageInitialUI();
+    }
+
+    private void CheckIfAnotherUserExists()
+    {
+        Loader.SetActive(true);
+        WebRequestHandler.instance.CheckIfUserExists(warningBox, Loader, kickPrompt);
+    }
+
+    private void ManageInitialUI()
     {
         if (PlayerPrefs.HasKey("Account"))
         {
@@ -26,7 +54,7 @@ public class MenuManager : MonoBehaviour
             string formatedPlayerAddress = FormatAddressString(playerAddress);
             addressText.text = formatedPlayerAddress;
         }
-        if(!PlayerPrefs.HasKey("Volume"))
+        if (!PlayerPrefs.HasKey("Volume"))
         {
             PlayerPrefs.SetFloat("Volume", volumeSlider.value);
         }
@@ -36,6 +64,7 @@ public class MenuManager : MonoBehaviour
         }
         Loader.SetActive(false);
         tracks = AudioManager.instance.GetTracks();
+        warningBox.SetActive(false);
     }
 
     private static string FormatAddressString(string playerAddress)

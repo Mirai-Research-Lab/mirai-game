@@ -1799,6 +1799,36 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 301793907}
+    - target: {fileID: 7099354958511642498, guid: 0859c6eba48462a44a9f9dc866a10fce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099354958704143935, guid: 0859c6eba48462a44a9f9dc866a10fce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099354958908492226, guid: 0859c6eba48462a44a9f9dc866a10fce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099354959171812443, guid: 0859c6eba48462a44a9f9dc866a10fce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099354959444770581, guid: 0859c6eba48462a44a9f9dc866a10fce,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099354960041727542, guid: 0859c6eba48462a44a9f9dc866a10fce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7923853838871391590, guid: 0859c6eba48462a44a9f9dc866a10fce,
         type: 3}
       propertyPath: playerShooting

@@ -81,10 +81,6 @@ public class Web3Interactions : MonoBehaviour
             warningText.text = "Transaction Error! Please Check Your Internet Connection!";
             StartCoroutine(WarningPopUp());
         }
-        finally
-        {
-            print(response);
-        }
     }
     private async Task InitialSignInWithWebWallet()
     {
