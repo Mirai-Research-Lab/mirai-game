@@ -23,4 +23,9 @@ public class SignInCanvasManager : MonoBehaviour
         }
         webRequestHandler.submitSignIn(emailField.text, passwordField.text, warningText, loaderComponent);
     }
+
+    public void OpenWebsite()
+    {
+        Application.OpenURL("https://mirai-frontend.vercel.app/");
+    }
 }

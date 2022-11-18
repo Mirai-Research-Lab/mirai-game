@@ -45,12 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWebGl: 0
-  GAME_CONTRACT_ADDRESS: 0x23e1A543a4C36B044E407B5fbaF95bAeEEaf5658
-  MIRAI_TOKEN_ADDRESS: 0xb5200FddB7130F2FF2F3f4B13AE432f1618B5FF7
+  GAME_CONTRACT_ADDRESS: 0x9586F76e4079412C74b02527eDe94208C7276f82
+  MIRAI_TOKEN_ADDRESS: 0xbbcCBe3907067F7081D4B966dcC0629b58307049
   network: goerli
   chain: ethereum
   chainId: 5
   loadingComponent: {fileID: 0}
+  warningText: {fileID: 0}
+  warningBox: {fileID: 0}
+  claimTokenButton: {fileID: 0}
   GAME_CONTRACT_ABI: '[   {     "type": "constructor",     "payable": false,    
     "inputs": [       { "type": "uint256", "name": "initialTokenGivenToPlayers" },      
     { "type": "uint256", "name": "tokenNeededToPlay" },       { "type": "uint256",

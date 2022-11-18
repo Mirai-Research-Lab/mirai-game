@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc53c5d25f30ea43a874dc738303a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SIGNIN_ROUTE: https://mirai-backend-kappa.vercel.app/api/auth/signin
+  SIGNIN_ROUTE: https://mirai-backend-kappa.vercel.app/api/auth/gamesignin
   DATAPOST_ROUTE: https://mirai-backend-kappa.vercel.app/api/game/updateScore
+  CHECK_EMAIL_ROUTE: https://mirai-backend-kappa.vercel.app/api/wallet/gameWalletCheck
+  SET_EMAIL_ROUTE: https://mirai-backend-kappa.vercel.app/api/player/gameUpdateAddress

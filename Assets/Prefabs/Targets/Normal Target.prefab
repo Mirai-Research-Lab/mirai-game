@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06de60e03be345b4d9a8704b8674f0b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durability: 90
+  durability: 100
   moveSpeed: 5
   points: 15
   selfDestructTime: 1.7

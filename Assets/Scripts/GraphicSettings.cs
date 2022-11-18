@@ -28,5 +28,6 @@ public class GraphicSettings : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(value);
         QualitySettings.renderPipeline = qualityLevels[value];
+        PlayerPrefs.SetInt("Quality", value);
     }
 }

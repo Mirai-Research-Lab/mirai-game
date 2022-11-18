@@ -59,20 +59,27 @@ public class UpdateUi : MonoBehaviour
     {
         UpdateTimeUi();
         UpdateSensitivityUsingUI();
-        if(count == 0 && TimeManager.instance.GetTime() <= 0f)
-        {
-            if (Application.internetReachability == NetworkReachability.NotReachable)
-            {
-                StartCoroutine(WarningPopUp());
-                return;
-            }
+        OnGameEnd();
+    }
+
+    private void OnGameEnd()
+    {
+        if (count == 0 && TimeManager.instance.GetTime() <= 0f)
+        {                
             count++;
             float accuracy = ((float)playerShooting.getShotsOnTarget() / (float)playerShooting.getShotsFired() * 100f);
             truncatedAccuracy = Mathf.Round(accuracy * 100f) / 100f;
             timeManager.GetComponent<GameManager>().addBonusPoints(truncatedAccuracy * BONUS_POINT_MULTIPLIER);
             addBonus++;
             if (isUsingWeb)
+            {
+                if (Application.internetReachability == NetworkReachability.NotReachable)
+                {
+                    StartCoroutine(WarningPopUp());
+                    return;
+                }
                 WebRequestHandler.instance.postSeissionData(loader, warningBox);
+            }
             else
                 ShowEndPrompt();
         }
@@ -132,7 +139,10 @@ public class UpdateUi : MonoBehaviour
         endContainer.SetActive(true);
         shotsHitText.text = playerShooting.getShotsOnTarget().ToString();
         totalShotsText.text = playerShooting.getShotsFired().ToString();
-        prevHighestScoreText.text = PlayerPrefs.GetString("PrevHighestScore");
+        if (PlayerPrefs.HasKey("PrevHighestScore") && prevHighestScoreText != null)
+            prevHighestScoreText.text = PlayerPrefs.GetString("PrevHighestScore");
+        else if(prevHighestScoreText != null)
+            prevHighestScoreText.text = "Could not get data!";
         accuracyText.text = truncatedAccuracy.ToString("F2")+"%";
         bonusPointsText.text = (truncatedAccuracy * BONUS_POINT_MULTIPLIER).ToString();
         scorePointsText.text = (timeManager.GetComponent<GameManager>().getTotalPoints()).ToString();

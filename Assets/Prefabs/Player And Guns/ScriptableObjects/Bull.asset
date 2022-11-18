@@ -19,4 +19,4 @@ MonoBehaviour:
   pickUpPrefab: {fileID: 8889430004855004023, guid: 4a29ae6ef2c1c8e4ebf9bf61282be226,
     type: 3}
   ammo: 25
-  damage: 35
+  damage: 25
