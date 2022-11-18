@@ -19,6 +19,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI warningText;
     [SerializeField] private GameObject warningBox;
     [SerializeField] private GameObject kickPrompt;
+    [SerializeField] private GameObject warningBox2;
+    [SerializeField] private GameObject warningBox3;
     private const float DECIMALS = 1000000000000000000;
     private Sound[] tracks;
     private void Start()
@@ -65,6 +67,8 @@ public class MenuManager : MonoBehaviour
         Loader.SetActive(false);
         tracks = AudioManager.instance.GetTracks();
         warningBox.SetActive(false);
+        warningBox2.SetActive(false);
+        warningBox3.SetActive(false);
     }
 
     private static string FormatAddressString(string playerAddress)
@@ -82,8 +86,8 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         AdjustMasterVolume();
-        if (PlayerPrefs.HasKey("Token"))
-            tokenText.text = "Token- " + PlayerPrefs.GetFloat("Token").ToString();
+        if (PlayerPrefs.HasKey("TokenString"))
+            tokenText.text = "Token- " + PlayerPrefs.GetString("TokenString").ToString();
     }
 
     private void AdjustMasterVolume()
@@ -119,30 +123,50 @@ public class MenuManager : MonoBehaviour
             return;
         }
         float amountInWei = (amountInFloat * DECIMALS);
+        PlayerPrefs.SetString("TokenString", "Updating...");
         await web3Manager.BuyToken(amountInWei.ToString("0.##"), Loader);
     }
 
     public async void StartGame()
     {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        if (PlayerPrefs.HasKey("Token"))
         {
-            warningText.text = "Transaction Error! Please Check Your Internet Connection!";
-            StartCoroutine(WarningPopUp());
-            return;
+            if (PlayerPrefs.GetFloat("Token") >= 10f)
+            {
+                if (Application.internetReachability == NetworkReachability.NotReachable)
+                {
+                    warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+                    StartCoroutine(WarningPopUp());
+                    return;
+                }
+                if (Loader != null)
+                    Loader.SetActive(true);
+                PlayerPrefs.SetString("TokenString", "Updating...");
+                await web3Manager.BurnToken();
+                if (Loader != null)
+                    Loader.SetActive(false);
+                if (web3Manager.getIsBurnTransactionSuccess())
+                {
+                    web3Manager.setIsBurnTransactionSuccess(false);
+                    SceneLoader.instance.LoadNextSceneAsync();
+                }
+            }
+            else
+            {
+                StartCoroutine(Warning3PopUp());
+            }
         }
-        if (Loader != null)
-            Loader.SetActive(true);
-        await web3Manager.BurnToken();
-        if (Loader != null)
-            Loader.SetActive(false);
-        if(web3Manager.getIsBurnTransactionSuccess())
+        else
         {
-            web3Manager.setIsBurnTransactionSuccess(false);
-            SceneLoader.instance.LoadNextSceneAsync();
+            StartCoroutine(Warning2PopUp());
         }
-            
     }
 
+    public async void ClaimFreeToken()
+    {
+        PlayerPrefs.SetString("TokenString", "Updating...");
+        await web3Manager.SignUp();
+    }
     public void StartDemoGame()
     {
         SceneLoader.instance.LoadSceneAsync(5);
@@ -180,5 +204,17 @@ public class MenuManager : MonoBehaviour
         warningBox.SetActive(true);
         yield return new WaitForSeconds(2f);
         warningBox.SetActive(false);
+    }
+    IEnumerator Warning2PopUp()
+    {
+        warningBox2.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        warningBox2.SetActive(false);
+    }
+    IEnumerator Warning3PopUp()
+    {
+        warningBox3.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        warningBox3.SetActive(false);
     }
 }

@@ -20,6 +20,7 @@ public class Web3Interactions : MonoBehaviour
     [SerializeField] private GameObject loadingComponent;
     [SerializeField] TextMeshProUGUI warningText;
     [SerializeField] GameObject warningBox;
+    [SerializeField] GameObject claimTokenButton;
     private bool isBurnTransactionSuccess = false;
     private BigInteger DECIMALS = BigInteger.Parse("1000000000000000000");
     [SerializeField] private string GAME_CONTRACT_ABI = "";
@@ -32,26 +33,21 @@ public class Web3Interactions : MonoBehaviour
     }
     private async void Start()
     {
+        claimTokenButton.SetActive(false);
         await CheckIfSignedUp();
         if(!isAlreadySignedUp)
         {
-            await SignUp();
+            claimTokenButton.SetActive(true);
         }
         await GetTokenBalance();
     }
 
-    private async Task SignUp()
+    public async Task SignUp()
     {
         if (loadingComponent != null)
             loadingComponent.SetActive(true);
-        if (!isWebGl)
-        {
-            await InitialSignInWithWebWallet();
-        }
-        else
-        {
-            await InitialSignInWithWebGlWallet();
-        }
+        await InitialSignInWithWebWallet();
+        await GetTokenBalance();
         if (loadingComponent != null)
             loadingComponent.SetActive(false);
     }
@@ -64,6 +60,7 @@ public class Web3Interactions : MonoBehaviour
             StartCoroutine(WarningPopUp());
             return; 
         }
+        loadingComponent.SetActive(true);
         string method = "getPlayerInfo";
         string account = PlayerPrefs.GetString("Account");
         Debug.Log("Account is : " + account);
@@ -73,14 +70,20 @@ public class Web3Interactions : MonoBehaviour
         try
         {
             response = await EVM.Call(chain, network, GAME_CONTRACT_ADDRESS, GAME_CONTRACT_ABI, method, args);
-            isAlreadySignedUp = true;
+            Debug.Log(response);
+            if(response != "[\"0\",\"0\"]")
+                isAlreadySignedUp = true;
+            loadingComponent.SetActive(false);
         }
         catch (Exception e)
         {
             print(e);
+            Debug.Log(response);
             warningText.text = "Transaction Error! Please Check Your Internet Connection!";
+            loadingComponent.SetActive(false);
             StartCoroutine(WarningPopUp());
         }
+        loadingComponent.SetActive(false);
     }
     private async Task InitialSignInWithWebWallet()
     {
@@ -90,6 +93,7 @@ public class Web3Interactions : MonoBehaviour
             StartCoroutine(WarningPopUp());
             return;
         }
+        loadingComponent.SetActive(true);
         string method = "signIn";
         string account = PlayerPrefs.GetString("Account");
         string[] obj = { account };
@@ -99,16 +103,24 @@ public class Web3Interactions : MonoBehaviour
         try
         {
             response = await Web3Wallet.SendTransaction(chainId, GAME_CONTRACT_ADDRESS, "0", data, "", "");
+            print(response);
+            loadingComponent.SetActive(false);
+            claimTokenButton.SetActive(false);
         }
         catch (Exception e)
         {
             print(e.ToString());
+            print(response);
+            loadingComponent.SetActive(false);
+            claimTokenButton.SetActive(true);
         }
         finally
         {
             await GetTokenBalance();
             print(response);
+            loadingComponent.SetActive(false);
         }
+
     }
     private async Task InitialSignInWithWebGlWallet()
     {
@@ -291,15 +303,18 @@ public class Web3Interactions : MonoBehaviour
             StartCoroutine(WarningPopUp());
             return;
         }
+        loadingComponent.SetActive(true);
         if (PlayerPrefs.HasKey("Account"))
             try
             {
-                await Task.Delay(25000);
+                await Task.Delay(15000);
                 string account = PlayerPrefs.GetString("Account");
                 BigInteger balanceOf = await ERC20.BalanceOf(chain, network, MIRAI_TOKEN_ADDRESS, account);
                 float balanceOfInteger = (float)BigInteger.Divide(balanceOf, DECIMALS);
                 PlayerPrefs.SetFloat("Token", balanceOfInteger);
+                PlayerPrefs.SetString("TokenString", balanceOfInteger.ToString());
                 print(balanceOfInteger.ToString());
+                loadingComponent.SetActive(false);
             }
             catch (Exception e)
             {

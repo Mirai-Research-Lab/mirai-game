@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
     {
         totalPoints += amount;
         pointsEarnedInGame = totalPoints;
+        if (pointsEarnedInGame <= 0)
+            pointsEarnedInGame = 0;
         if (totalPoints <= 0)
             totalPoints = 0;
     }

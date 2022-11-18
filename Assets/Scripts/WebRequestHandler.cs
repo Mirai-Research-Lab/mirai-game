@@ -85,6 +85,7 @@ public class WebRequestHandler : MonoBehaviour
             }
             if (req.result == UnityWebRequest.Result.Success)
             {
+                Debug.Log(req.downloadHandler.text);
                 var jsonResponse = JsonUtility.FromJson<PlayerModel>(req.downloadHandler.text);
                 PlayerPrefs.SetString("Email", jsonResponse.email);
                 PlayerPrefs.SetString("PrevHighestScore", jsonResponse.highest_score.ToString());
@@ -311,5 +312,6 @@ public class WebRequestHandler : MonoBehaviour
         PlayerPrefs.DeleteKey("Email");
         PlayerPrefs.DeleteKey("Checked");
         PlayerPrefs.DeleteKey("Token");
+        PlayerPrefs.DeleteKey("TokenString");
     }
 }
