@@ -32,7 +32,7 @@
 ### To run the game in local environment:
 
 1. Run command: `git clone https://github.com/Mirai-Research-Lab/mirai-game.git`
-2. Open the project in Unity Hub (preferably v2021.3.9.f1).
+2. Open the project in Unity Hub (preferably v2021.3.2f1).
 
 ---
 
